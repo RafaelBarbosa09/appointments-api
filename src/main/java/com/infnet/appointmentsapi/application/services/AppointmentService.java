@@ -4,13 +4,7 @@ import com.infnet.appointmentsapi.domain.repositories.*;
 import com.infnet.appointmentsapi.infrastructure.models.*;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Service
 public class AppointmentService {
@@ -19,17 +13,20 @@ public class AppointmentService {
     private final AddressRepository addressRepository;
     private final ProfessionalRepository professionalRepository;
     private final WorkRepository workRepository;
+    private final AppointmentStatusRepository appointmentStatusRepository;
 
     public AppointmentService(AppointmentRepository appointmentRepository,
                               CustomerRepository customerRepository,
                               AddressRepository addressRepository,
                               ProfessionalRepository professionalRepository,
-                              WorkRepository workRepository) {
+                              WorkRepository workRepository,
+                              AppointmentStatusRepository appointmentStatusRepository) {
         this.appointmentRepository = appointmentRepository;
         this.customerRepository = customerRepository;
         this.addressRepository = addressRepository;
         this.professionalRepository = professionalRepository;
         this.workRepository = workRepository;
+        this.appointmentStatusRepository = appointmentStatusRepository;
     }
 
     public Appointment create(Appointment appointment) {
@@ -56,6 +53,10 @@ public class AppointmentService {
             work = workRepository.findById(appointment.getWork().getId()).orElse(null);
         }
         appointment.setWork(work);
+
+        long statusScheduledId = 1L;
+        AppointmentStatus status = appointmentStatusRepository.findById(statusScheduledId).orElse(null);
+        appointment.setStatus(status);
 
         return appointmentRepository.save(appointment);
     }

@@ -27,6 +27,10 @@ public class Appointment {
     @JoinColumn(name = "work_id")
     private Work work;
 
+    @ManyToOne
+    @JoinColumn(name = "status_id")
+    private AppointmentStatus status;
+
     @Column(nullable = false)
     private LocalDateTime appointmentDateTime;
 }
