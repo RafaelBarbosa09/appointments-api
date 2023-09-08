@@ -1,0 +1,9 @@
+version: '3.7'
+
+services:
+  appointments-api:
+    build: './'
+    container_name: appointments-api
+    ports:
+      - 8080:8080
+    network_mode: "host"
