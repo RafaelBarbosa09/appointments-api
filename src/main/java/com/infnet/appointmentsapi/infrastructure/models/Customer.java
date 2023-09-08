@@ -40,7 +40,7 @@ public class Customer {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
     private List<Appointment> appointments = new ArrayList<>();
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 }

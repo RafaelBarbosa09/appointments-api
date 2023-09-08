@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.Duration;
+import java.time.LocalTime;
 
 @Data
 @AllArgsConstructor
@@ -19,7 +20,7 @@ public class Work {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column()
     private String description;
 
     @Column(nullable = false)

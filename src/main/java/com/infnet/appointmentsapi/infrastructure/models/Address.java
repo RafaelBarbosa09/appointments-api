@@ -34,7 +34,7 @@ public class Address {
     @Column(nullable = false)
     private String zipCode;
 
-    @JsonIgnore
-    @OneToOne(mappedBy = "address")
-    private Customer customer;
+//    @JsonIgnore
+//    @OneToOne(mappedBy = "address")
+//    private Customer customer;
 }

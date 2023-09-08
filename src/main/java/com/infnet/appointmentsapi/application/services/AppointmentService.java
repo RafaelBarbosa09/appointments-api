@@ -2,12 +2,15 @@ package com.infnet.appointmentsapi.application.services;
 
 import com.infnet.appointmentsapi.domain.repositories.*;
 import com.infnet.appointmentsapi.infrastructure.models.*;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.time.Duration;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class AppointmentService {
@@ -55,5 +58,9 @@ public class AppointmentService {
         appointment.setWork(work);
 
         return appointmentRepository.save(appointment);
+    }
+
+    public List<Appointment> getAllAppointments() {
+        return appointmentRepository.findAll();
     }
 }
