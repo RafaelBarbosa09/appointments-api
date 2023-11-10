@@ -36,4 +36,24 @@ public class AppointmentController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+
+    @GetMapping("/customer/{id}")
+    public ResponseEntity<Object> getByCustomerId(@PathVariable Long id) {
+        try {
+            List<Appointment> appointments = service.getAppointmentsByCustomerId(id);
+            return ResponseEntity.status(HttpStatus.OK).body(appointments);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Object> updateStatus(@PathVariable Long id) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(service.updateStatus(id));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
 }

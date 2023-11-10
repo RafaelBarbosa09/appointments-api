@@ -5,6 +5,7 @@ import com.infnet.appointmentsapi.infrastructure.models.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class AppointmentService {
@@ -63,5 +64,22 @@ public class AppointmentService {
 
     public List<Appointment> getAllAppointments() {
         return appointmentRepository.findAll();
+    }
+
+    public List<Appointment> getAppointmentsByCustomerId(Long customerId) {
+        return appointmentRepository.findByCustomerId(customerId);
+    }
+
+    public Appointment updateStatus(Long id) {
+        Appointment appointment = appointmentRepository.findById(id).orElse(null);
+        if (Objects.isNull(appointment)) {
+            throw new RuntimeException("Appointment not found");
+        }
+
+        long statusCanceledId = 2L;
+        AppointmentStatus status = appointmentStatusRepository.findById(statusCanceledId).orElse(null);
+        appointment.setStatus(status);
+
+        return appointmentRepository.save(appointment);
     }
 }
