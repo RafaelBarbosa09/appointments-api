@@ -37,7 +37,7 @@ public class AvailabilityService {
     public Availability createWeekAvailability(LocalDate startDate) {
         LocalDate endDate = startDate.plusDays(7);
 
-
+        return null;
     }
 
 }
