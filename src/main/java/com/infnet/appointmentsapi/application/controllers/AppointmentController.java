@@ -20,6 +20,7 @@ public class AppointmentController {
     @PostMapping()
     public ResponseEntity<Object> create(@RequestBody Appointment appointment) {
         try {
+            System.out.println(appointment);
             Appointment response = service.create(appointment);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (Exception e) {
@@ -46,7 +47,6 @@ public class AppointmentController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
-
 
     @PatchMapping("/{id}")
     public ResponseEntity<Object> updateStatus(@PathVariable Long id) {

@@ -2,6 +2,7 @@ package com.infnet.appointmentsapi.application.controllers;
 
 import com.infnet.appointmentsapi.application.services.TokenService;
 import com.infnet.appointmentsapi.domain.dto.AuthenticationDTO;
+import com.infnet.appointmentsapi.domain.dto.LoginRequestDTO;
 import com.infnet.appointmentsapi.domain.dto.LoginResponseDTO;
 import com.infnet.appointmentsapi.domain.dto.RegisterDTO;
 import com.infnet.appointmentsapi.domain.repositories.UserRepository;
@@ -9,11 +10,14 @@ import com.infnet.appointmentsapi.infrastructure.models.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -23,7 +27,8 @@ public class AuthenticationController {
     private final UserRepository userRepository;
     private final TokenService tokenService;
 
-    public AuthenticationController(AuthenticationManager authenticationManager, UserRepository userRepository, TokenService tokenService) {
+    public AuthenticationController(AuthenticationManager authenticationManager, UserRepository userRepository,
+            TokenService tokenService) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.tokenService = tokenService;
@@ -51,5 +56,15 @@ public class AuthenticationController {
         this.userRepository.save(user);
 
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<UserDetails> getUserByLogin(@RequestParam String login) {
+        UserDetails user = userRepository.findByLogin(login);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(user);
     }
 }

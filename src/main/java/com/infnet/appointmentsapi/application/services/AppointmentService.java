@@ -4,6 +4,7 @@ import com.infnet.appointmentsapi.domain.repositories.*;
 import com.infnet.appointmentsapi.infrastructure.models.*;
 import org.springframework.stereotype.Service;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,11 +18,11 @@ public class AppointmentService {
     private final AppointmentStatusRepository appointmentStatusRepository;
 
     public AppointmentService(AppointmentRepository appointmentRepository,
-                              CustomerRepository customerRepository,
-                              AddressRepository addressRepository,
-                              ProfessionalRepository professionalRepository,
-                              WorkRepository workRepository,
-                              AppointmentStatusRepository appointmentStatusRepository) {
+            CustomerRepository customerRepository,
+            AddressRepository addressRepository,
+            ProfessionalRepository professionalRepository,
+            WorkRepository workRepository,
+            AppointmentStatusRepository appointmentStatusRepository) {
         this.appointmentRepository = appointmentRepository;
         this.customerRepository = customerRepository;
         this.addressRepository = addressRepository;
@@ -63,7 +64,15 @@ public class AppointmentService {
     }
 
     public List<Appointment> getAllAppointments() {
-        return appointmentRepository.findAll();
+
+        List<Appointment> appointments = appointmentRepository.findAll();
+        // format date to datetime-local
+        // dont return datetime array. return datetime object
+        // appointments.forEach(appointment -> {
+        // appointment.setAppointmentDateTime((LocalDateT)
+        // appointment.getAppointmentDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")));
+        // });
+        return appointments;
     }
 
     public List<Appointment> getAppointmentsByCustomerId(Long customerId) {

@@ -5,7 +5,8 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.Duration;
-import java.time.LocalTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Data
 @AllArgsConstructor
