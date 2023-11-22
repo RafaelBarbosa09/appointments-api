@@ -6,8 +6,6 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.time.Duration;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

@@ -1,6 +1,5 @@
 package com.infnet.appointmentsapi.infrastructure.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -34,7 +33,7 @@ public class Address {
     @Column(nullable = false)
     private String zipCode;
 
-//    @JsonIgnore
-//    @OneToOne(mappedBy = "address")
-//    private Customer customer;
+    // @JsonIgnore
+    // @OneToOne(mappedBy = "address")
+    // private Customer customer;
 }

@@ -4,7 +4,6 @@ import com.infnet.appointmentsapi.domain.repositories.*;
 import com.infnet.appointmentsapi.infrastructure.models.*;
 import org.springframework.stereotype.Service;
 
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 
