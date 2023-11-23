@@ -16,7 +16,7 @@ public class TimeSlotService {
         this.timeSlotRepository = timeSlotRepository;
     }
 
-    public void createTimeSlot(TimeSlot timeSlotDTO) {
+    public List<TimeSlot> createTimeSlot(TimeSlot timeSlotDTO) {
         LocalTime startTime = timeSlotDTO.getStartTime();
         LocalTime endTime = timeSlotDTO.getEndTime();
 
@@ -36,6 +36,6 @@ public class TimeSlotService {
             startTime = startTime.plusHours(1);
         }
 
-        timeSlotRepository.saveAll(timeSlots);
+        return timeSlotRepository.saveAll(timeSlots);
     }
 }

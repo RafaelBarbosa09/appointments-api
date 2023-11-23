@@ -1,6 +1,7 @@
 package com.infnet.appointmentsapi.application.controllers;
 
 import com.infnet.appointmentsapi.application.services.AvailabilityService;
+import com.infnet.appointmentsapi.domain.dto.AvailabilityRequestDTO;
 import com.infnet.appointmentsapi.infrastructure.models.Availability;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class AvailabilityController {
     }
 
     @PostMapping()
-    public ResponseEntity<Object> create(@RequestBody Availability availability) {
+    public ResponseEntity<Object> create(@RequestBody AvailabilityRequestDTO availability) {
         try {
             Availability createdAvailability = availabilityService.createAvailability(availability);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdAvailability);
@@ -37,4 +38,3 @@ public class AvailabilityController {
         }
     }
 }
-
