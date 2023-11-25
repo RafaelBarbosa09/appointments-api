@@ -6,6 +6,7 @@ import com.infnet.appointmentsapi.domain.repositories.AvailabilityRepository;
 import com.infnet.appointmentsapi.domain.repositories.TimeSlotRepository;
 import com.infnet.appointmentsapi.infrastructure.models.Availability;
 import com.infnet.appointmentsapi.infrastructure.models.TimeSlot;
+
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -47,6 +48,10 @@ public class AvailabilityService {
         availability.setTimeSlots(timeSlotsCreated);
 
         return availabilityRepository.save(availability);
+    }
+
+    public Availability getAvailabilityByDate(String date) {
+        return availabilityRepository.findByDate(LocalDate.parse(date));
     }
 
     public Availability createWeekAvailability(LocalDate startDate) {

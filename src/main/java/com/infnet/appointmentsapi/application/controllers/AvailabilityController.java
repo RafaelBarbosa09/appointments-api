@@ -37,4 +37,14 @@ public class AvailabilityController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
+
+    @GetMapping("/date")
+    public ResponseEntity<Object> getByDate(@RequestParam String date) {
+        try {
+            Availability availabilities = availabilityService.getAvailabilityByDate(date);
+            return ResponseEntity.status(HttpStatus.OK).body(availabilities);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
 }
