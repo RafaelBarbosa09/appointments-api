@@ -37,6 +37,11 @@ public class Customer {
     private Date birthdate;
 
     @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
     private List<Appointment> appointments = new ArrayList<>();
 

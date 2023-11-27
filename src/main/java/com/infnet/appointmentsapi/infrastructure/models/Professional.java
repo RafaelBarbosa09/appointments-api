@@ -1,5 +1,6 @@
 package com.infnet.appointmentsapi.infrastructure.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,4 +30,9 @@ public class Professional {
 
     @Column(nullable = false)
     private String cnpj;
+
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 }
