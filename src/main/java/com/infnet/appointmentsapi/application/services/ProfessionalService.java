@@ -7,6 +7,7 @@ import com.infnet.appointmentsapi.infrastructure.models.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ProfessionalService {
@@ -31,5 +32,14 @@ public class ProfessionalService {
         professional.setUser(user);
 
         return professionalRepository.save(professional);
+    }
+
+    public Professional getPofessionalByUserId(Long userId) {
+        Professional professional = professionalRepository.getByUserId(userId);
+        if (Objects.isNull(professional)) {
+            throw new RuntimeException("Professional not found");
+        }
+
+        return professional;
     }
 }

@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProfessionalRepository extends JpaRepository<Professional, Long> {
-
+    Professional getByUserId(Long userId);
 }

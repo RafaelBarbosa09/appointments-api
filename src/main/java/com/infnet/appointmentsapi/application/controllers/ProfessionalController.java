@@ -33,13 +33,23 @@ public class ProfessionalController {
         }
     }
 
-    @PostMapping("/{userId}")
+    @PostMapping("/user/{userId}")
     public ResponseEntity<Object> create(@RequestBody Professional professionalDto, @PathVariable Long userId) {
         try {
             Professional professional = service.createProfessional(professionalDto, userId);
             return ResponseEntity.status(HttpStatus.CREATED).body(professional);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<Object> getByUserId(@PathVariable Long userId) {
+        try {
+            Professional professional = service.getPofessionalByUserId(userId);
+            return ResponseEntity.status(HttpStatus.OK).body(professional);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 }
