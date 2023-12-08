@@ -37,17 +37,16 @@ class AvailabilityServiceTest {
     @Test
     void testGetAllAvaialabilitiesByDateAndProfessionalIdShouldReturnSuccess() {
         Mockito.when(availabilityRepository.findAllAvaialabilitiesByDateAndProfessionalId(
-                    Mockito.any(LocalDate.class),
-                    Mockito.any(Long.class)
-                ))
-                .thenReturn(List.of(new Availability()));
+                Mockito.any(LocalDate.class),
+                Mockito.any(Long.class)))
+                .thenReturn(new Availability());
 
         assertDoesNotThrow(() -> availabilityService.getAllAvaialabilitiesByDateAndProfessionalId("2023-11-23", 1L));
 
         Mockito.verify(
                 availabilityRepository,
-                Mockito.times(1)
-        ).findAllAvaialabilitiesByDateAndProfessionalId(Mockito.any(LocalDate.class), Mockito.any(Long.class));
+                Mockito.times(1))
+                .findAllAvaialabilitiesByDateAndProfessionalId(Mockito.any(LocalDate.class), Mockito.any(Long.class));
 
     }
 
