@@ -7,6 +7,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
 
@@ -33,5 +35,14 @@ class WorkControllerTest {
         assertDoesNotThrow(() -> workController.getAll());
 
         verify(workService, times(1)).getAllWorks();
+    }
+
+    @Test
+    void getAllException() {
+        when(workService.getAllWorks()).thenThrow(new RuntimeException("Erro ao buscar todos os works"));
+
+        ResponseEntity<Object> response = workController.getAll();
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 }

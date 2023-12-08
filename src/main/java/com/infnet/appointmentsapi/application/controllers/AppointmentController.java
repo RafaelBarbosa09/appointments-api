@@ -43,7 +43,7 @@ public class AppointmentController {
             List<Appointment> appointments = service.getAppointmentsByCustomerId(id);
             return ResponseEntity.status(HttpStatus.OK).body(appointments);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
@@ -53,7 +53,7 @@ public class AppointmentController {
             List<Appointment> appointments = service.getAppointmentsByProfessionalId(id);
             return ResponseEntity.status(HttpStatus.OK).body(appointments);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 

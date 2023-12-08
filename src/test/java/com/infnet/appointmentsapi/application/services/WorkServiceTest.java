@@ -27,4 +27,11 @@ class WorkServiceTest {
 
         verify(workRepository, times(1)).findAll();
     }
+
+    @Test
+    void getAllWork_ShouldThrowException() {
+        when(workRepository.findAll()).thenThrow(new RuntimeException("Erro ao buscar todos os works"));
+
+        assertThrows(RuntimeException.class, () -> workService.getAllWorks());
+    }
 }

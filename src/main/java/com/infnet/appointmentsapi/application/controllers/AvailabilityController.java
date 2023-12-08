@@ -45,7 +45,7 @@ public class AvailabilityController {
             Availability availabilities = availabilityService.getAvailabilityByDate(date);
             return ResponseEntity.status(HttpStatus.OK).body(availabilities);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
@@ -55,7 +55,7 @@ public class AvailabilityController {
             Availability availabilities = availabilityService.getAllAvaialabilitiesByDateAndProfessionalId(date, id);
             return ResponseEntity.status(HttpStatus.OK).body(availabilities);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
