@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -36,17 +37,17 @@ class AvailabilityServiceTest {
     @Test
     void testGetAllAvaialabilitiesByDateAndProfessionalIdShouldReturnSuccess() {
         Mockito.when(availabilityRepository.findAllAvaialabilitiesByDateAndProfessionalId(
-                    Mockito.any(Date.class),
+                    Mockito.any(LocalDate.class),
                     Mockito.any(Long.class)
                 ))
                 .thenReturn(List.of(new Availability()));
 
-        assertDoesNotThrow(() -> availabilityService.getAllAvaialabilitiesByDateAndProfessionalId(new Date(), 1L));
+        assertDoesNotThrow(() -> availabilityService.getAllAvaialabilitiesByDateAndProfessionalId("2023-11-23", 1L));
 
         Mockito.verify(
                 availabilityRepository,
                 Mockito.times(1)
-        ).findAllAvaialabilitiesByDateAndProfessionalId(Mockito.any(Date.class), Mockito.any(Long.class));
+        ).findAllAvaialabilitiesByDateAndProfessionalId(Mockito.any(LocalDate.class), Mockito.any(Long.class));
 
     }
 

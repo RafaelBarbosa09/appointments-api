@@ -12,5 +12,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AvailabilityRepository extends JpaRepository<Availability, Long> {
     Availability findByDate(LocalDate date);
-    List<Availability> findAllAvaialabilitiesByDateAndProfessionalId(Date date, Long professionalId);
+    List<Availability> findAllAvaialabilitiesByDateAndProfessionalId(LocalDate date, Long professionalId);
 }

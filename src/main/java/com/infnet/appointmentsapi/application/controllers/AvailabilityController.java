@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -47,4 +48,15 @@ public class AvailabilityController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
+
+    @GetMapping("/professional/{id}/date")
+    public ResponseEntity<Object> getByDateAndProfessionalId(@RequestParam String date, @PathVariable Long id) {
+        try {
+            List<Availability> availabilities = availabilityService.getAllAvaialabilitiesByDateAndProfessionalId(date, id);
+            return ResponseEntity.status(HttpStatus.OK).body(availabilities);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
 }

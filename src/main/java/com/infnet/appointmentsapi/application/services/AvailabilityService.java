@@ -64,8 +64,8 @@ public class AvailabilityService {
         return availabilityRepository.findByDate(LocalDate.parse(date));
     }
 
-    public List<Availability> getAllAvaialabilitiesByDateAndProfessionalId(Date date, Long professionalId) {
-        return availabilityRepository.findAllAvaialabilitiesByDateAndProfessionalId(date, professionalId);
+    public List<Availability> getAllAvaialabilitiesByDateAndProfessionalId(String date, Long professionalId) {
+        return availabilityRepository.findAllAvaialabilitiesByDateAndProfessionalId(LocalDate.parse(date), professionalId);
     }
 
     public Availability createWeekAvailability(LocalDate startDate) {
