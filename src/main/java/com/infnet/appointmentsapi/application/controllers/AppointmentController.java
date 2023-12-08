@@ -47,6 +47,16 @@ public class AppointmentController {
         }
     }
 
+    @GetMapping("/professional/{id}")
+    public ResponseEntity<Object> getByProfessionalId(@PathVariable Long id) {
+        try {
+            List<Appointment> appointments = service.getAppointmentsByProfessionalId(id);
+            return ResponseEntity.status(HttpStatus.OK).body(appointments);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
     @PatchMapping("/{id}")
     public ResponseEntity<Object> updateStatus(@PathVariable Long id) {
         try {

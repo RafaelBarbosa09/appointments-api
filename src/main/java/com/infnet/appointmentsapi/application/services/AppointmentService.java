@@ -78,6 +78,10 @@ public class AppointmentService {
         return appointmentRepository.findByCustomerId(customerId);
     }
 
+    public List<Appointment> getAppointmentsByProfessionalId(Long professionalId) {
+        return appointmentRepository.findByProfessionalId(professionalId);
+    }
+
     public Appointment updateStatus(Long id) {
         Appointment appointment = appointmentRepository.findById(id).orElse(null);
         if (Objects.isNull(appointment)) {

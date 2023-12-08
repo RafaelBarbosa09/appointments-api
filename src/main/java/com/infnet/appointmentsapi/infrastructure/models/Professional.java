@@ -15,8 +15,7 @@ public class Professional {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "professional_id")
+    @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL)
     private List<Availability> availability;
 
     @Column(nullable = false)
