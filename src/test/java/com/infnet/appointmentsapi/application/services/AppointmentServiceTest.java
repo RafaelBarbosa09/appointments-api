@@ -19,22 +19,22 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class AppointmentServiceTest {
     @Mock
-    private  AppointmentRepository appointmentRepository;
+    private AppointmentRepository appointmentRepository;
 
     @Mock
-    private  CustomerRepository customerRepository;
+    private CustomerRepository customerRepository;
 
     @Mock
-    private  AddressRepository addressRepository;
+    private AddressRepository addressRepository;
 
     @Mock
-    private  ProfessionalRepository professionalRepository;
+    private ProfessionalRepository professionalRepository;
 
     @Mock
-    private  WorkRepository workRepository;
+    private WorkRepository workRepository;
 
     @Mock
-    private  AppointmentStatusRepository appointmentStatusRepository;
+    private AppointmentStatusRepository appointmentStatusRepository;
 
     @InjectMocks
     private AppointmentService appointmentService;
