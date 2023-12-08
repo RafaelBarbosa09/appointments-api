@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -61,6 +62,10 @@ public class AvailabilityService {
 
     public Availability getAvailabilityByDate(String date) {
         return availabilityRepository.findByDate(LocalDate.parse(date));
+    }
+
+    public List<Availability> getAllAvaialabilitiesByDateAndProfessionalId(Date date, Long professionalId) {
+        return availabilityRepository.findAllAvaialabilitiesByDateAndProfessionalId(date, professionalId);
     }
 
     public Availability createWeekAvailability(LocalDate startDate) {
