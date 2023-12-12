@@ -65,7 +65,11 @@ public class AvailabilityService {
     }
 
     public Availability getAllAvaialabilitiesByDateAndProfessionalId(String date, Long professionalId) {
-        return availabilityRepository.findAllAvaialabilitiesByDateAndProfessionalId(LocalDate.parse(date),
+        Availability availability = availabilityRepository.findAllAvaialabilitiesByDateAndProfessionalId(LocalDate.parse(date),
                 professionalId);
+
+        availability.setTimeSlots(availability.getTimeSlots().stream().filter(TimeSlot::isAvailable).toList());
+
+        return availability;
     }
 }

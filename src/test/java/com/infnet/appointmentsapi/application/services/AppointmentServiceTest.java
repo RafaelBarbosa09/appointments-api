@@ -11,6 +11,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,13 +52,23 @@ class AppointmentServiceTest {
         Address address = new Address();
         address.setId(1L);
 
+        TimeSlot timeSlot = new TimeSlot();
+        timeSlot.setStartTime(LocalTime.now().truncatedTo(ChronoUnit.HOURS));
+        timeSlot.setEndTime(LocalTime.now().truncatedTo(ChronoUnit.HOURS).plusHours(1));
+
+        Availability availability = new Availability();
+        availability.setDate(LocalDate.now());
+        availability.setTimeSlots(List.of(timeSlot));
+
         Professional professional = new Professional();
         professional.setId(1L);
+        professional.setAvailability(List.of(availability));
 
         Work work = new Work();
         work.setId(1L);
 
         Appointment appointment = new Appointment();
+        appointment.setAppointmentDateTime(LocalDateTime.now());
         appointment.setCustomer(customer);
         customer.setAddress(address);
         appointment.setProfessional(professional);

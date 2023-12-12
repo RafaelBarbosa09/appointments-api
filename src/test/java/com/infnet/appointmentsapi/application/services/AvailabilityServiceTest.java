@@ -6,6 +6,7 @@ import com.infnet.appointmentsapi.domain.repositories.AvailabilityRepository;
 import com.infnet.appointmentsapi.domain.repositories.ProfessionalRepository;
 import com.infnet.appointmentsapi.domain.repositories.TimeSlotRepository;
 import com.infnet.appointmentsapi.infrastructure.models.Availability;
+import com.infnet.appointmentsapi.infrastructure.models.TimeSlot;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,6 +15,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -38,10 +40,13 @@ class AvailabilityServiceTest {
 
     @Test
     void testGetAllAvaialabilitiesByDateAndProfessionalId_Success() {
+        Availability availability = new Availability();
+        availability.setTimeSlots(List.of(new TimeSlot()));
+
         Mockito.when(availabilityRepository.findAllAvaialabilitiesByDateAndProfessionalId(
                 Mockito.any(LocalDate.class),
                 Mockito.any(Long.class)))
-                .thenReturn(new Availability());
+                .thenReturn(availability);
 
         assertDoesNotThrow(() -> availabilityService.getAllAvaialabilitiesByDateAndProfessionalId("2023-11-23", 1L));
 

@@ -4,6 +4,10 @@ import com.infnet.appointmentsapi.domain.repositories.*;
 import com.infnet.appointmentsapi.infrastructure.models.*;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,19 +19,22 @@ public class AppointmentService {
     private final ProfessionalRepository professionalRepository;
     private final WorkRepository workRepository;
     private final AppointmentStatusRepository appointmentStatusRepository;
+    private final TimeSlotRepository timeSlotRepository;
 
     public AppointmentService(AppointmentRepository appointmentRepository,
             CustomerRepository customerRepository,
             AddressRepository addressRepository,
             ProfessionalRepository professionalRepository,
             WorkRepository workRepository,
-            AppointmentStatusRepository appointmentStatusRepository) {
+            AppointmentStatusRepository appointmentStatusRepository,
+            TimeSlotRepository timeSlotRepository) {
         this.appointmentRepository = appointmentRepository;
         this.customerRepository = customerRepository;
         this.addressRepository = addressRepository;
         this.professionalRepository = professionalRepository;
         this.workRepository = workRepository;
         this.appointmentStatusRepository = appointmentStatusRepository;
+        this.timeSlotRepository = timeSlotRepository;
     }
 
     public Appointment create(Appointment appointment) {
@@ -58,8 +65,31 @@ public class AppointmentService {
         long statusScheduledId = 1L;
         AppointmentStatus status = appointmentStatusRepository.findById(statusScheduledId).orElse(null);
         appointment.setStatus(status);
+        appointment.setAppointmentDateTime(appointment.getAppointmentDateTime().minusHours(3));
 
-        return appointmentRepository.save(appointment);
+        Appointment dupplicatedAppointment = appointmentRepository
+                .findByAppointmentDateTime(appointment.getAppointmentDateTime());
+        if (Objects.nonNull(dupplicatedAppointment)) {
+            throw new RuntimeException("Appointment already exists");
+        }
+
+        Appointment appointmentCreated = appointmentRepository.save(appointment);
+
+        appointmentCreated.getProfessional().getAvailability().forEach(availability -> {
+            if (availability.getDate().equals(appointmentCreated.getAppointmentDateTime().toLocalDate())) {
+                availability.getTimeSlots().forEach(timeSlot -> {
+                    LocalTime timeSlotStartTime = timeSlot.getStartTime().truncatedTo(ChronoUnit.MINUTES);
+                    LocalTime appointmentTime = appointmentCreated.getAppointmentDateTime().toLocalTime()
+                            .truncatedTo(ChronoUnit.MINUTES);
+                    if (appointmentTime.equals(timeSlotStartTime)) {
+                        timeSlot.setAvailable(false);
+                        timeSlotRepository.save(timeSlot);
+                    }
+                });
+            }
+        });
+
+        return appointmentCreated;
     }
 
     public List<Appointment> getAllAppointments() {

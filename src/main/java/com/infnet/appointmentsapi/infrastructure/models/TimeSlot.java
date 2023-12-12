@@ -37,4 +37,8 @@ public class TimeSlot {
 
     @Column(nullable = false)
     private boolean available;
+
+    public boolean isAvailable() {
+        return available;
+    }
 }
