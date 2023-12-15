@@ -1,7 +1,7 @@
 version: '3.7'
 
 services:
-  order-db:
+  appointments-db:
     image: postgres:11
     container_name: appointments-db
     environment:
