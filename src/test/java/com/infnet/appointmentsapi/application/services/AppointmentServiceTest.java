@@ -104,7 +104,9 @@ class AppointmentServiceTest {
 
     @Test
     void getAppointmentsByCustomerId() {
-        when(appointmentRepository.findByCustomerId(1L)).thenReturn(List.of(new Appointment()));
+        Appointment appointment = new Appointment();
+        appointment.setAppointmentDateTime(LocalDateTime.now());
+        when(appointmentRepository.findByCustomerId(1L)).thenReturn(List.of(appointment));
 
         assertDoesNotThrow(() -> appointmentService.getAppointmentsByCustomerId(1L));
 
@@ -113,7 +115,9 @@ class AppointmentServiceTest {
 
     @Test
     void getAppointmentsByProfessionalId() {
-        when(appointmentRepository.findByProfessionalId(1L)).thenReturn(List.of(new Appointment()));
+        Appointment appointment = new Appointment();
+        appointment.setAppointmentDateTime(LocalDateTime.now());
+        when(appointmentRepository.findByProfessionalId(1L)).thenReturn(List.of(appointment));
 
         assertDoesNotThrow(() -> appointmentService.getAppointmentsByProfessionalId(1L));
 

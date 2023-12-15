@@ -4,12 +4,16 @@ import com.infnet.appointmentsapi.domain.repositories.*;
 import com.infnet.appointmentsapi.infrastructure.models.*;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class AppointmentService {
@@ -105,11 +109,23 @@ public class AppointmentService {
     }
 
     public List<Appointment> getAppointmentsByCustomerId(Long customerId) {
-        return appointmentRepository.findByCustomerId(customerId);
+        List<Appointment> appointments = appointmentRepository.findByCustomerId(customerId);
+        LocalDate yesterday = LocalDate.now().minusDays(1);
+
+        return appointments = appointments.stream()
+                .sorted(Comparator.comparing(Appointment::getAppointmentDateTime))
+                .filter(appointment -> appointment.getAppointmentDateTime().toLocalDate().isAfter(yesterday))
+                .collect(Collectors.toList());
     }
 
     public List<Appointment> getAppointmentsByProfessionalId(Long professionalId) {
-        return appointmentRepository.findByProfessionalId(professionalId);
+        List<Appointment> appointments = appointmentRepository.findByProfessionalId(professionalId);
+        LocalDate yesterday = LocalDate.now().minusDays(1);
+
+        return appointments = appointments.stream()
+                .sorted(Comparator.comparing(Appointment::getAppointmentDateTime))
+                .filter(appointment -> appointment.getAppointmentDateTime().toLocalDate().isAfter(yesterday))
+                .collect(Collectors.toList());
     }
 
     public Appointment updateStatus(Long id) {
