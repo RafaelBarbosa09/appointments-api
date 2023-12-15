@@ -1,6 +1,17 @@
 version: '3.7'
 
 services:
+  order-db:
+    image: postgres:11
+    container_name: appointments-db
+    environment:
+      - POSTGRES_DB=appointments-db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - 5433:5432
+    network_mode: "host"
+
   appointments-api:
     build: './'
     container_name: appointments-api
